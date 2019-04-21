@@ -15,9 +15,6 @@ class App extends Component {
 
 export default App;
 
-//TODO prefetch, preload and preconnect
-// reconcilation
-// calling child component's method
-// centralized error handling
-// actions middleware
+//TODO
 // settimeout clear
+// nextpage youtube api
