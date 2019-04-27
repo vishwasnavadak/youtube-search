@@ -14,7 +14,3 @@ class App extends Component {
 }
 
 export default App;
-
-//TODO
-// settimeout clear
-// nextpage youtube api

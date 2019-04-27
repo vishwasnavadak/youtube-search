@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import YTSearch from "youtube-api-search";
+import YTSearch from "./YTSearch";
 
 import SearchResults from "./SearchResults";
 
@@ -11,27 +11,29 @@ export default class YoutubeSearch extends Component {
     this.state = {
       videos: [],
       keyword: "",
-      maxResults: 5
+      pageToken: null
     };
-    this.handleInput = this.handleInput.bind(this);
   }
-
+  componentDidMount() {
+    this.delay = null;
+  }
   fetchVideos = () => {
     YTSearch(
       {
         key: API_KEY,
         term: this.state.keyword,
-        maxResults: this.state.maxResults
+        pageToken: this.state.pageToken
       },
-      videos => {
-        //   console.log("TCL: YoutubeSearch -> fetchVideos -> videos", videos);
-        this.setState({ videos: videos });
+      data => {
+        this.setState({
+          videos: [...this.state.videos, ...data.items],
+          pageToken: data.nextPageToken
+        });
       }
     );
   };
   handleScroll = () => {
-    if (this.state.maxResults <= 45) {
-      this.setState({ maxResults: this.state.maxResults + 5 });
+    if (this.state.pageToken !== null) {
       this.fetchVideos();
       console.log("loading more videos");
     } else {
@@ -39,10 +41,11 @@ export default class YoutubeSearch extends Component {
     }
   };
   handleInput = e => {
+    clearTimeout(this.delay);
     let keyword = e.target.value;
     this.setState({ keyword: keyword });
     if (keyword !== "") {
-      setTimeout(() => {
+      this.delay = setTimeout(() => {
         this.fetchVideos();
       }, 1000);
     }

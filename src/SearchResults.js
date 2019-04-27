@@ -29,7 +29,7 @@ export default class SearchResults extends Component {
     return (
       <div className="results">
         {this.props.videos.map(video => {
-          return <ResultItem video={video} key={video.etag} />;
+          return <ResultItem video={video} key={video.id.videoId} />;
         })}
       </div>
     );
