@@ -43,11 +43,11 @@ export default class YoutubeSearch extends Component {
   handleInput = e => {
     clearTimeout(this.delay);
     let keyword = e.target.value;
-    this.setState({ keyword: keyword });
+    this.setState({ keyword: keyword, videos: [], pageToken: null });
     if (keyword !== "") {
       this.delay = setTimeout(() => {
         this.fetchVideos();
-      }, 1000);
+      }, 500);
     }
   };
   render() {
