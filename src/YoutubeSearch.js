@@ -61,7 +61,7 @@ export default class YoutubeSearch extends Component {
       );
     }
     return (
-      <div>
+      <React.Fragment>
         <input
           className="search-bar"
           type="text"
@@ -70,7 +70,7 @@ export default class YoutubeSearch extends Component {
           placeholder="Type to Search"
         />
         {results}
-      </div>
+      </React.Fragment>
     );
   }
 }
